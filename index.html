@@ -91,10 +91,10 @@
       <div id="fieldsHalfDay" style="display:none;">
         <label for="date2">Ngày:</label>
         <input type="date" id="date2">
-        <label>Buổi:</label>
-        <input type="radio" name="session" value="午前"> Sáng
+        <label class="ps-4 pe-2">Buổi:</label>
+        <span class="pe-4"><input type="radio" name="session" value="午前"> Sáng</span>
         <input type="radio" name="session" value="午後"> Chiều
-        <label for="reason2">Lí do:</label>
+        <label for="reason2" class="ps-4">Lí do:</label>
         <select id="reason2">
           <option value="病気のため">Bệnh</option>
           <option value="家事都合のため">Việc gia đình</option>
@@ -161,8 +161,9 @@
       </div>
 
       <br>
-      <input type="submit" value="Gửi">
-      <button type="button" onclick="copyToClipboard()">Copy</button> <!-- Nút Copy -->
+      <!-- <input type="submit" value="Gửi"> -->
+      <button type="submit" class="btn btn-primary">Gửi</button>
+      <button type="button" onclick="copyToClipboard()" class="btn btn-success">Copy</button> <!-- Nút Copy -->
     </form>
 
     <div id="result"></div> <!-- Khu vực hiển thị kết quả -->

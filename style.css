@@ -51,9 +51,9 @@
         background-color: #5BC044; /* Màu nền khi hover nút Copy */
       }
       input[type="radio"] {
-        width: 30px; /* Kích thước radio button */
-        height: 30px; /* Kích thước radio button */
-        margin-right: 10px; /* Khoảng cách bên phải của radio button */
+        width: 20px; /* Kích thước radio button */
+        height: 20px; /* Kích thước radio button */
+        margin-right: 5px; /* Khoảng cách bên phải của radio button */
       }
       .inline {
         display: inline-block; /* Đặt các phần tử trên cùng một hàng */
