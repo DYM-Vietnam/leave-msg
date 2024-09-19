@@ -1,0 +1,61 @@
+      body {
+        font-size: 24px; /* Kích thước chữ nhỏ hơn để phù hợp với màn hình */
+        background-color: #f0f4f8; /* Màu nền nhẹ */
+        font-family: Arial, sans-serif; /* Phong cách chữ */
+        padding: 20px; /* Padding cho body */
+      }
+      h3 {
+        color: #1F2C5C; /* Màu tiêu đề */
+        text-align: center;
+      }
+      #result {
+        margin-top: 20px;
+        white-space: pre-wrap; /* Giữ định dạng văn bản */
+        border: 3px solid #1F2C5C;
+        padding: 15px;
+        background-color: #ffffff; /* Màu nền khung kết quả */
+        border-radius: 10px; /* Bo tròn khung kết quả */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho khung */
+        max-height: 200px; /* Giới hạn chiều cao */
+        overflow-y: auto; /* Thêm thanh cuộn nếu cần */
+      }
+      label {
+        display: block; /* Đặt nhãn xuống dòng */
+        margin: 5px 0; /* Khoảng cách giữa nhãn và trường nhập */
+        font-weight: bold; /* In đậm tiêu đề */
+      }
+      select, input[type="submit"], input[type="number"], input[type="date"], input[type="time"], button {
+        height: 50px; /* Chiều cao */
+        font-size: 24px; /* Kích thước chữ */
+        margin: 5px 0; /* Khoảng cách trên và dưới */
+        border: 3px solid #1F2C5C; /* Viền màu chủ đạo */
+        border-radius: 5px; /* Bo tròn */
+        padding: 5px; /* Padding cho các trường nhập */
+        transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp */
+      }
+      input[type="submit"] {
+        background-color: #1F2C5C; /* Màu nền nút */
+        color: white; /* Màu chữ nút */
+        cursor: pointer; 
+      }
+      input[type="submit"]:hover {
+        background-color: #1D8CF1; /* Màu nền khi hover */
+      }
+      button {
+        background-color: #157235; /* Màu nền nút Copy */
+        color: white; /* Màu chữ nút Copy */
+        cursor: pointer; /* Đổi con trỏ khi di chuột */
+        margin-left: 10px; /* Khoảng cách với nút Gửi */
+      }
+      button:hover {
+        background-color: #5BC044; /* Màu nền khi hover nút Copy */
+      }
+      input[type="radio"] {
+        width: 30px; /* Kích thước radio button */
+        height: 30px; /* Kích thước radio button */
+        margin-right: 10px; /* Khoảng cách bên phải của radio button */
+      }
+      .inline {
+        display: inline-block; /* Đặt các phần tử trên cùng một hàng */
+        margin-right: 20px; /* Khoảng cách giữa các phần tử */
+      }
