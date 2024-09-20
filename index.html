@@ -2,173 +2,67 @@
 <html>
   <head>
     <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script>
       function handleFormSubmit() {
         const leaveType = document.getElementById('leaveType').value;
+        const isApproved = document.getElementById('approvedCheckbox').checked ? " （小林さん承認済み）" : "";
         let message = '';
 
         switch (leaveType) {
           case '1day':
             const date1 = formatDate(document.getElementById('date1').value);
             const reason1 = document.getElementById('reason1').value;
-            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date1}日に有給休暇を取らせていただきます。\n理由：${reason1}\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
+            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date1}に有給休暇を取らせていただきます。\n理由：${reason1}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case 'halfDay':
             const date2 = formatDate(document.getElementById('date2').value);
             const session = document.querySelector('input[name="session"]:checked').value;
             const reason2 = document.getElementById('reason2').value;
-            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date2}の${session}に休暇を取らせていただきます。\n理由：${reason2}\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
+            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date2}の${session}に休暇を取らせていただきます。\n理由：${reason2}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case 'multipleDays':
             const startDate = formatDate(document.getElementById('startDate').value);
             const endDate = formatDate(document.getElementById('endDate').value);
             const reason3 = document.getElementById('reason3').value;
-            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${startDate}～${endDate}までに有給休暇を取らせていただきます。\n理由：${reason3}\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
+            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${startDate}～${endDate}までに有給休暇を取らせていただきます。\n理由：${reason3}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case 'late':
             const lateMinutes = document.getElementById('lateMinutes').value;
-            message = `@小林真之\n@Ánh Cơ\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日${lateMinutes}分くらい遅刻させていただきます。\n理由: 渋滞のため\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
+            message = `@小林真之\n@Ánh Cơ\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日${lateMinutes}分くらい遅刻させていただきます。\n理由: 渋滞のため\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case 'Fkyuu':
             const fkyuuType = document.getElementById('fkyuuType').value;
-            message = `@小林真之\n@Ánh Cơ\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日30分くらい${fkyuuType}させていただきます。\n理由: F休\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
+            message = `@小林真之\n@Ánh Cơ\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日30分くらい${fkyuuType}させていただきます。\n理由: F休\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case 'customize':
             const customDate = formatDate(document.getElementById('customDate').value);
-            const startTime = document.getElementById('startTime').value || "未定"; // Nếu không nhập giờ, đặt là "未定"
-            const endTime = document.getElementById('endTime').value || "未定"; // Nếu không nhập giờ, đặt là "未定"
+            const startTime = document.getElementById('startTime').value || "未定";
+            const endTime = document.getElementById('endTime').value || "未定";
             const reason4 = document.getElementById('reason4').value;
-            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${customDate} の ${startTime}～ ${endTime}までに休暇を取らせていただきます。\n理由：${reason4}\nご迷惑をおかけしますことを深くお詫び申し上げます。`;
-            break; 
+            message = `@小林真之\n@Anh Co\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${customDate} の ${startTime}～ ${endTime}までに休暇を取らせていただきます。\n理由：${reason4}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
         }
 
-        document.getElementById('result').innerText = message; // Hiển thị kết quả
+        document.getElementById('result').innerText = message;
       }
 
       function formatDate(date) {
         const [year, month, day] = date.split('-');
-        return `${parseInt(month)}月${parseInt(day)}日`; // Định dạng tháng và ngày
+        return `${parseInt(month)}月${parseInt(day)}日`;
       }
 
       function copyToClipboard() {
         const resultText = document.getElementById('result').innerText;
         navigator.clipboard.writeText(resultText).then(() => {
-          alert('Đã sao chép vào clipboard!');
+          alert('Đã sao chép');
         }).catch(err => {
           alert('Lỗi khi sao chép: ', err);
         });
       }
-    </script>
-  </head>
-  <body>
-    <h3>Xin nghỉ phép</h3>
-    <form onsubmit="handleFormSubmit(); return false;">
-      <label for="leaveType">Loại nghỉ:</label>
-      <select id="leaveType" onchange="toggleFields()">
-        <option value="late">Đi trễ</option>
-        <option value="Fkyuu">F休</option>
-        <option value="halfDay">Nửa ngày</option>
-        <option value="1day">1 ngày</option>
-        <option value="multipleDays">Nhiều ngày</option>
-        <option value="customize">Tùy chọn</option>
-      </select>
-      <br><br>
 
-      <div id="fields1day" style="display:none;">
-        <label for="date1">Ngày:</label>
-        <input type="date" id="date1">
-        <label for="reason1">Lí do:</label>
-        <select id="reason1">
-          <option value="病気のため">Bệnh</option>
-          <option value="家事都合のため">Việc gia đình</option>
-          <option value="必要な手続きをするため">Làm giấy tờ</option>
-          <option value="銀行に行くため">Đi ngân hàng</option>
-        </select>
-      </div>
-
-      <div id="fieldsHalfDay" style="display:none;">
-        <label for="date2">Ngày:</label>
-        <input type="date" id="date2">
-        <label class="ps-4 pe-2">Buổi:</label>
-        <span class="pe-4"><input type="radio" name="session" value="午前"> Sáng</span>
-        <input type="radio" name="session" value="午後"> Chiều
-        <label for="reason2" class="ps-4">Lí do:</label>
-        <select id="reason2">
-          <option value="病気のため">Bệnh</option>
-          <option value="家事都合のため">Việc gia đình</option>
-          <option value="必要な手続きをするため">Làm giấy tờ</option>
-          <option value="銀行に行くため">Đi ngân hàng</option>
-        </select>
-      </div>
-
-      <div id="fieldsMultipleDays" style="display:none;">
-        <div style="display: flex; align-items: center;">
-          <div class="inline">
-            <label for="startDate">Ngày bắt đầu:</label>
-            <input type="date" id="startDate">
-          </div>
-          <div class="inline">
-            <label for="endDate">Ngày kết thúc:</label>
-            <input type="date" id="endDate">
-          </div>
-        </div>
-        <label for="reason3">Lí do:</label>
-        <select id="reason3">
-          <option value="病気のため">Bệnh</option>
-          <option value="家事都合のため">Việc gia đình</option>
-          <option value="必要な手続きをするため">Làm giấy tờ</option>
-          <option value="銀行に行くため">Đi ngân hàng</option>
-        </select>
-      </div>
-
-      <div id="fieldsLate" style="display:none;">
-        <label for="lateMinutes">Số phút đi trễ:</label>
-        <input type="number" id="lateMinutes">
-      </div>
-
-      <div id="fieldsFkyuu" style="display:none;">
-        <label for="fkyuuType">Loại:</label>
-        <select id="fkyuuType">
-          <option value="遅刻">Xin đi trễ</option>
-          <option value="早退">Xin về sớm</option>
-        </select>
-      </div>
-
-      <div id="fieldsCustomize" style="display:none;">
-        <div style="display: flex; align-items: center;">
-          <div class="inline">
-            <label for="customDate">Ngày:</label>
-            <input type="date" id="customDate">
-          </div>
-          <div class="inline">
-            <label for="startTime">Giờ bắt đầu:</label>
-            <input type="time" id="startTime"> <!-- Không bắt buộc nhập -->
-          </div>
-          <div class="inline">
-            <label for="endTime">Giờ kết thúc:</label>
-            <input type="time" id="endTime"> <!-- Không bắt buộc nhập -->
-          </div>
-        </div>
-        <label for="reason4">Lí do:</label>
-        <select id="reason4">
-          <option value="病気のため">Bệnh</option>
-          <option value="家事都合のため">Việc gia đình</option>
-          <option value="必要な手続きをするため">Làm giấy tờ</option>
-          <option value="銀行に行くため">Đi ngân hàng</option>
-        </select>
-      </div>
-
-      <br>
-      <!-- <input type="submit" value="Gửi"> -->
-      <button type="submit" class="btn btn-primary">Gửi</button>
-      <button type="button" onclick="copyToClipboard()" class="btn btn-success">Copy</button> <!-- Nút Copy -->
-    </form>
-
-    <div id="result"></div> <!-- Khu vực hiển thị kết quả -->
-
-    <script>
       function toggleFields() {
         const leaveType = document.getElementById('leaveType').value;
         document.getElementById('fields1day').style.display = leaveType === '1day' ? 'block' : 'none';
@@ -177,8 +71,136 @@
         document.getElementById('fieldsLate').style.display = leaveType === 'late' ? 'block' : 'none';
         document.getElementById('fieldsFkyuu').style.display = leaveType === 'Fkyuu' ? 'block' : 'none';
         document.getElementById('fieldsCustomize').style.display = leaveType === 'customize' ? 'block' : 'none';
+
+        // Hide the approval checkbox for "Fkyuu" and "late"
+        document.getElementById('approvalSection').style.display = (leaveType === 'Fkyuu' || leaveType === 'late') ? 'none' : 'block';
       }
+
+      window.onload = function() {
+        toggleFields();
+      };
     </script>
+  </head>
+  <body>
+    <div class="container-fluid px-3 py-4 d-flex flex-column align-items-center">
+      <h3 class="text-center mb-4">XIN NGHỈ PHÉP</h3>
+      <form onsubmit="handleFormSubmit(); return false;" class="w-100" style="max-width: 500px;">
+        <div class="mb-3">
+          <label for="leaveType">Loại nghỉ:</label>
+          <select id="leaveType" class="form-control" onchange="toggleFields()">
+            <option value="late" selected>Đi trễ</option>
+            <option value="Fkyuu">F休</option>
+            <option value="halfDay">Nửa ngày</option>
+            <option value="1day">1 ngày</option>
+            <option value="multipleDays">Nhiều ngày</option>
+            <option value="customize">Tùy chọn</option>
+          </select>
+        </div>
+
+        <div id="fields1day" class="mb-3" style="display:none;">
+          <label for="date1">Ngày:</label>
+          <input type="date" id="date1" class="form-control">
+          <label for="reason1" class="mt-2">Lí do:</label>
+          <select id="reason1" class="form-control">
+            <option value="病気のため">Bệnh</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+          </select>
+        </div>
+
+        <div id="fieldsHalfDay" class="mb-3" style="display:none;">
+          <label for="date2">Ngày:</label>
+          <input type="date" id="date2" class="form-control">
+          <div class="mt-2">
+            <label class="form-label me-2">Buổi:</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="session" value="午前" id="sessionMorning">
+              <label class="form-check-label" for="sessionMorning">Sáng</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="session" value="午後" id="sessionAfternoon">
+              <label class="form-check-label" for="sessionAfternoon">Chiều</label>
+            </div>
+          </div>
+          <label for="reason2" class="mt-2">Lí do:</label>
+          <select id="reason2" class="form-control">
+            <option value="病気のため">Bệnh</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+          </select>
+        </div>
+
+        <div id="fieldsMultipleDays" class="mb-3" style="display:none;">
+          <div class="row">
+            <div class="col">
+              <label for="startDate">Ngày bắt đầu:</label>
+              <input type="date" id="startDate" class="form-control">
+            </div>
+            <div class="col">
+              <label for="endDate">Ngày kết thúc:</label>
+              <input type="date" id="endDate" class="form-control">
+            </div>
+          </div>
+          <label for="reason3" class="mt-2">Lí do:</label>
+          <select id="reason3" class="form-control">
+            <option value="病気のため">Bệnh</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+          </select>
+        </div>
+
+        <div id="fieldsLate" class="mb-3" style="display:block;">
+          <label for="lateMinutes">Số phút đi trễ:</label>
+          <input type="number" id="lateMinutes" class="form-control">
+        </div>
+
+        <div id="fieldsFkyuu" class="mb-3" style="display:none;">
+          <label for="fkyuuType">Loại:</label>
+          <select id="fkyuuType" class="form-control">
+            <option value="遅刻">Xin đi trễ</option>
+            <option value="早退">Xin về sớm</option>
+          </select>
+        </div>
+
+        <div id="fieldsCustomize" class="mb-3" style="display:none;">
+          <div class="row">
+            <div class="col">
+              <label for="customDate">Ngày:</label>
+              <input type="date" id="customDate" class="form-control">
+            </div>
+            <div class="col">
+              <label for="startTime">Giờ bắt đầu:</label>
+              <input type="time" id="startTime" class="form-control">
+            </div>
+            <div class="col">
+              <label for="endTime">Giờ kết thúc:</label>
+              <input type="time" id="endTime" class="form-control">
+            </div>
+          </div>
+          <label for="reason4" class="mt-2">Lí do:</label>
+          <select id="reason4" class="form-control">
+            <option value="病気のため">Bệnh</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+          </select>
+        </div>
+
+        <div id="approvalSection" class="mb-3" style="display:block;">
+          <input type="checkbox" id="approvedCheckbox" class="form-check-input">
+          <label for="approvedCheckbox" class="form-check-label">SẾP KOBA ĐÃ DUYỆT</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-2">Xuất</button>
+        <button type="button" onclick="copyToClipboard()" class="btn btn-success w-100">Copy</button>
+      </form>
+
+      <div id="result" class="result-box mt-3 text-center"></div>
+    </div>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </body>
 </html>
