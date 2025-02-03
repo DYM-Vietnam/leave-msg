@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <base target="_top" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script>
+      function saveData() {
+        const leaveType = document.getElementById("leaveType").value;
+        localStorage.setItem("leaveType", leaveType);
+
+        const approved = document.getElementById("approvedCheckbox").checked;
+        localStorage.setItem("approvedCheckbox", approved);
+
+        if (leaveType === "1day") {
+          localStorage.setItem("date1", document.getElementById("date1").value);
+          localStorage.setItem(
+            "reason1",
+            document.getElementById("reason1").value
+          );
+        } else if (leaveType === "halfDay") {
+          localStorage.setItem("date2", document.getElementById("date2").value);
+          localStorage.setItem(
+            "session",
+            document.querySelector('input[name="session"]:checked').value
+          );
+          localStorage.setItem(
+            "reason2",
+            document.getElementById("reason2").value
+          );
+        } else if (leaveType === "multipleDays") {
+          localStorage.setItem(
+            "startDate",
+            document.getElementById("startDate").value
+          );
+          localStorage.setItem(
+            "endDate",
+            document.getElementById("endDate").value
+          );
+          localStorage.setItem(
+            "reason3",
+            document.getElementById("reason3").value
+          );
+        } else if (leaveType === "late") {
+          localStorage.setItem(
+            "lateMinutes",
+            document.getElementById("lateMinutes").value
+          );
+        } else if (leaveType === "Fkyuu") {
+          localStorage.setItem(
+            "fkyuuType",
+            document.getElementById("fkyuuType").value
+          );
+        } else if (leaveType === "customize") {
+          localStorage.setItem(
+            "customDate",
+            document.getElementById("customDate").value
+          );
+          localStorage.setItem(
+            "startTime",
+            document.getElementById("startTime").value
+          );
+          localStorage.setItem(
+            "endTime",
+            document.getElementById("endTime").value
+          );
+          localStorage.setItem(
+            "reason4",
+            document.getElementById("reason4").value
+          );
+        }
+      }
+
+      function restoreData() {
+        const leaveType = localStorage.getItem("leaveType");
+        if (leaveType) {
+          document.getElementById("leaveType").value = leaveType;
+          toggleFields();
+
+          document.getElementById("approvedCheckbox").checked =
+            localStorage.getItem("approvedCheckbox") === "true";
+
+          if (leaveType === "1day") {
+            document.getElementById("date1").value =
+              localStorage.getItem("date1") || "";
+            document.getElementById("reason1").value =
+              localStorage.getItem("reason1") || "";
+          } else if (leaveType === "halfDay") {
+            document.getElementById("date2").value =
+              localStorage.getItem("date2") || "";
+            const session = localStorage.getItem("session");
+            if (session) {
+              document.querySelector(
+                `input[name="session"][value="${session}"]`
+              ).checked = true;
+            }
+            document.getElementById("reason2").value =
+              localStorage.getItem("reason2") || "";
+          } else if (leaveType === "multipleDays") {
+            document.getElementById("startDate").value =
+              localStorage.getItem("startDate") || "";
+            document.getElementById("endDate").value =
+              localStorage.getItem("endDate") || "";
+            document.getElementById("reason3").value =
+              localStorage.getItem("reason3") || "";
+          } else if (leaveType === "late") {
+            document.getElementById("lateMinutes").value =
+              localStorage.getItem("lateMinutes") || "";
+          } else if (leaveType === "Fkyuu") {
+            document.getElementById("fkyuuType").value =
+              localStorage.getItem("fkyuuType") || "";
+          } else if (leaveType === "customize") {
+            document.getElementById("customDate").value =
+              localStorage.getItem("customDate") || "";
+            document.getElementById("startTime").value =
+              localStorage.getItem("startTime") || "";
+            document.getElementById("endTime").value =
+              localStorage.getItem("endTime") || "";
+            document.getElementById("reason4").value =
+              localStorage.getItem("reason4") || "";
+          }
+        }
+      }
+
+      function formatDate(date) {
+        const [year, month, day] = date.split("-");
+        return `${parseInt(month)}月${parseInt(day)}日`;
+      }
+
+      function copyToClipboard() {
+        const resultText = document.getElementById("result").innerText;
+        navigator.clipboard
+          .writeText(resultText)
+          .then(() => {
+            alert("Đã sao chép");
+          })
+          .catch((err) => {
+            alert("Lỗi khi sao chép: ", err);
+          });
+      }
+
+      function toggleFields() {
+        const leaveType = document.getElementById("leaveType").value;
+        document.getElementById("fields1day").style.display =
+          leaveType === "1day" ? "block" : "none";
+        document.getElementById("fieldsHalfDay").style.display =
+          leaveType === "halfDay" ? "block" : "none";
+        document.getElementById("fieldsMultipleDays").style.display =
+          leaveType === "multipleDays" ? "block" : "none";
+        document.getElementById("fieldsLate").style.display =
+          leaveType === "late" ? "block" : "none";
+        document.getElementById("fieldsFkyuu").style.display =
+          leaveType === "Fkyuu" ? "block" : "none";
+        document.getElementById("fieldsCustomize").style.display =
+          leaveType === "customize" ? "block" : "none";
+
+        document.getElementById("approvalSection").style.display =
+          leaveType === "Fkyuu" || leaveType === "late" ? "none" : "block";
+      }
+
+      window.onload = function () {
+        restoreData();
+        toggleFields();
+      };
+
+      function handleFormSubmit() {
+        saveData();
+
+        const leaveType = document.getElementById("leaveType").value;
+        const isApproved = document.getElementById("approvedCheckbox").checked
+          ? " （KHOIさん承認済み）"
+          : "";
+        let message = "";
+
+        switch (leaveType) {
+          case "1day":
+            const date1 = formatDate(document.getElementById("date1").value);
+            let reason1 = document.getElementById("reason1").value;
+            if (reason1 === "khac") {
+              reason1 =
+                document.getElementById("customreason1").value || "Khác";
+            }
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date1}に有給休暇を取らせていただきます。\n理由：${reason1}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+          case "halfDay":
+            const date2 = formatDate(document.getElementById("date2").value);
+            const session = document.querySelector(
+              'input[name="session"]:checked'
+            ).value;
+            let reason2 = document.getElementById("reason2").value;
+            if (reason2 === "khac") {
+              reason2 =
+                document.getElementById("customreason2").value || "Khác";
+            }
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date2}の${session}に休暇を取らせていただきます。\n理由：${reason2}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+          case "multipleDays":
+            const startDate = formatDate(
+              document.getElementById("startDate").value
+            );
+            const endDate = formatDate(
+              document.getElementById("endDate").value
+            );
+            let reason3 = document.getElementById("reason3").value;
+            if (reason3 === "khac") {
+              reason3 =
+                document.getElementById("customreason3").value || "Khác";
+            }
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${startDate}～${endDate}までに有給休暇を取らせていただきます。\n理由：${reason3}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+          case "late":
+            const lateMinutes = document.getElementById("lateMinutes").value;
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日${lateMinutes}分くらい遅刻させていただきます。\n理由: 渋滞のため\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+          case "Fkyuu":
+            const fkyuuType = document.getElementById("fkyuuType").value;
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日30分くらい${fkyuuType}させていただきます。\n理由: F休\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+          case "customize":
+            const customDate = formatDate(
+              document.getElementById("customDate").value
+            );
+            const startTime =
+              document.getElementById("startTime").value || "未定";
+            const endTime = document.getElementById("endTime").value || "未定";
+            let reason4 = document.getElementById("reason4").value;
+            if (reason4 === "khac") {
+              reason4 =
+                document.getElementById("customreason4").value || "Khác";
+            }
+            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${customDate} の ${startTime}～ ${endTime}までに休暇を取らせていただきます。\n理由：${reason4}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            break;
+        }
+
+        document.getElementById("result").innerText = message;
+      }
+
+      function handleReasonChange(reasonId) {
+        const reasonSelect = document.getElementById(reasonId);
+        const customReasonInput = document.getElementById(`custom${reasonId}`);
+
+        if (reasonSelect.value === "khac") {
+          customReasonInput.style.display = "block";
+        } else {
+          customReasonInput.style.display = "none";
+        }
+      }
+
+      function debounce(func, delay) {
+        let timeout;
+        return function (...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+      }
+
+      async function translateReason(inputId, reasonId) {
+        const inputField = document.getElementById(inputId);
+
+        if (!inputField || inputField.value.trim() === "") {
+          return;
+        }
+
+        const textToTranslate = inputField.value.trim();
+
+        try {
+          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=vi&tl=ja&dt=t&q=${encodeURIComponent(
+            textToTranslate
+          )}`;
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            throw new Error(`Lỗi dịch vụ Google Translate: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const translation = data[0].map((item) => item[0]).join("");
+          inputField.value = translation.trim();
+        } catch (error) {
+          console.error("Lỗi dịch:", error);
+          alert("Lỗi dịch ngôn ngữ: " + error.message);
+        }
+      }
+
+      const debouncedTranslateReason = debounce(translateReason, 1000);
+
+      document
+        .getElementById("customreason1")
+        .addEventListener("input", () =>
+          debouncedTranslateReason("customreason1", "reason1")
+        );
+      document
+        .getElementById("customreason2")
+        .addEventListener("input", () =>
+          debouncedTranslateReason("customreason2", "reason2")
+        );
+      document
+        .getElementById("customreason3")
+        .addEventListener("input", () =>
+          debouncedTranslateReason("customreason3", "reason3")
+        );
+      document
+        .getElementById("customreason4")
+        .addEventListener("input", () =>
+          debouncedTranslateReason("customreason4", "reason4")
+        );
+    </script>
+  </head>
+  <body>
+    <div
+      class="container-fluid px-3 py-4 d-flex flex-column align-items-center"
+    >
+      <h3 class="text-center mb-4">XIN NGHỈ PHÉP</h3>
+      <form
+        onsubmit="handleFormSubmit(); return false;"
+        class="w-100"
+        style="max-width: 500px"
+      >
+        <div class="mb-3">
+          <label for="leaveType">Loại nghỉ:</label>
+          <select id="leaveType" class="form-control" onchange="toggleFields()">
+            <option value="late" selected>Đi trễ</option>
+            <option value="Fkyuu">F休</option>
+            <option value="halfDay">Nửa ngày</option>
+            <option value="1day">1 ngày</option>
+            <option value="multipleDays">Nhiều ngày</option>
+            <option value="customize">Tùy chọn</option>
+          </select>
+        </div>
+
+        <div id="fields1day" class="mb-3" style="display: none">
+          <label for="date1">Ngày:</label>
+          <input type="date" id="date1" class="form-control" />
+          <label for="reason1" class="mt-2">Lí do:</label>
+          <select
+            id="reason1"
+            class="form-control"
+            onchange="handleReasonChange('reason1')"
+          >
+            <option value="病気のため">Bệnh</option>
+            <option value="私用のため">Việc cá nhân</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+            <option value="khac">Khác</option>
+          </select>
+          <input
+            type="text"
+            id="customreason1"
+            class="form-control mt-2"
+            placeholder="Nhập lý do khác..."
+            style="display: none"
+            oninput="debouncedTranslateReason('customreason1', 'reason1')"
+          />
+        </div>
+
+        <div id="fieldsHalfDay" class="mb-3" style="display: none">
+          <label for="date2">Ngày:</label>
+          <input type="date" id="date2" class="form-control" />
+          <div class="mt-2">
+            <label class="form-label me-2">Buổi:</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="session"
+                value="午前"
+                id="sessionMorning"
+              />
+              <label class="form-check-label" for="sessionMorning">Sáng</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="session"
+                value="午後"
+                id="sessionAfternoon"
+              />
+              <label class="form-check-label" for="sessionAfternoon"
+                >Chiều</label
+              >
+            </div>
+          </div>
+          <label for="reason2" class="mt-2">Lí do:</label>
+          <select
+            id="reason2"
+            class="form-control"
+            onchange="handleReasonChange('reason2')"
+          >
+            <option value="病気のため">Bệnh</option>
+            <option value="私用のため">Việc cá nhân</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+            <option value="khac">Khác</option>
+          </select>
+          <input
+            type="text"
+            id="customreason2"
+            class="form-control mt-2"
+            placeholder="Nhập lý do khác..."
+            style="display: none"
+            oninput="debouncedTranslateReason('customreason2', 'reason2')"
+          />
+        </div>
+
+        <div id="fieldsMultipleDays" class="mb-3" style="display: none">
+          <div class="row">
+            <div class="col">
+              <label for="startDate">Ngày bắt đầu:</label>
+              <input type="date" id="startDate" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="endDate">Ngày kết thúc:</label>
+              <input type="date" id="endDate" class="form-control" />
+            </div>
+          </div>
+          <label for="reason3" class="mt-2">Lí do:</label>
+          <select
+            id="reason3"
+            class="form-control"
+            onchange="handleReasonChange('reason3')"
+          >
+            <option value="病気のため">Bệnh</option>
+            <option value="私用のため">Việc cá nhân</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+            <option value="khac">Khác</option>
+          </select>
+          <input
+            type="text"
+            id="customreason3"
+            class="form-control mt-2"
+            placeholder="Nhập lý do khác..."
+            style="display: none"
+            oninput="debouncedTranslateReason('customreason3', 'reason3')"
+          />
+        </div>
+
+        <div id="fieldsLate" class="mb-3" style="display: block">
+          <label for="lateMinutes">Số phút đi trễ:</label>
+          <input type="number" id="lateMinutes" class="form-control" />
+        </div>
+
+        <div id="fieldsFkyuu" class="mb-3" style="display: none">
+          <label for="fkyuuType">Loại:</label>
+          <select id="fkyuuType" class="form-control">
+            <option value="遅刻">Xin đi trễ</option>
+            <option value="早退">Xin về sớm</option>
+          </select>
+        </div>
+
+        <div id="fieldsCustomize" class="mb-3" style="display: none">
+          <div class="row">
+            <div class="col">
+              <label for="customDate">Ngày:</label>
+              <input type="date" id="customDate" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="startTime">Giờ bắt đầu:</label>
+              <input type="time" id="startTime" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="endTime">Giờ kết thúc:</label>
+              <input type="time" id="endTime" class="form-control" />
+            </div>
+          </div>
+          <label for="reason4" class="mt-2">Lí do:</label>
+          <select
+            id="reason4"
+            class="form-control"
+            onchange="handleReasonChange('reason4')"
+          >
+            <option value="病気のため">Bệnh</option>
+            <option value="私用のため">Việc cá nhân</option>
+            <option value="家事都合のため">Việc gia đình</option>
+            <option value="必要な手続きをするため">Làm giấy tờ</option>
+            <option value="銀行に行くため">Đi ngân hàng</option>
+            <option value="khac">Khác</option>
+          </select>
+          <input
+            type="text"
+            id="customreason4"
+            class="form-control mt-2"
+            placeholder="Nhập lý do khác..."
+            style="display: none"
+            oninput="debouncedTranslateReason('customreason4', 'reason4')"
+          />
+        </div>
+
+        <div id="approvalSection" class="mb-3" style="display: block">
+          <input
+            type="checkbox"
+            id="approvedCheckbox"
+            class="form-check-input"
+          />
+          <label for="approvedCheckbox" class="form-check-label"
+            >LEADER ĐÃ DUYỆT</label
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-2">Xuất</button>
+        <button
+          type="button"
+          onclick="copyToClipboard()"
+          class="btn btn-success w-100"
+        >
+          Copy
+        </button>
+      </form>
+
+      <div id="result" class="result-box mt-3"></div>
+    </div>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </body>
+</html>
