@@ -5,14 +5,14 @@ body {
   padding: 20px; /* Padding cho body */
 }
 h3 {
-  color: #1F2C5C; 
+  color: #1f2c5c;
   text-align: center;
   font-weight: bold;
 }
 #result {
   margin-top: 20px;
   white-space: pre-wrap; /* Giữ định dạng văn bản */
-  border: 3px solid #1F2C5C;
+  border: 3px solid #1f2c5c;
   padding: 15px;
   background-color: #ffffff; /* Màu nền khung kết quả */
   border-radius: 10px; /* Bo tròn khung kết quả */
@@ -25,22 +25,27 @@ label {
   margin: 5px 0; /* Khoảng cách giữa nhãn và trường nhập */
   font-weight: bold; /* In đậm tiêu đề */
 }
-select, input[type="submit"], input[type="number"], input[type="date"], input[type="time"], button {
+select,
+input[type="submit"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+button {
   height: 50px; /* Chiều cao */
   font-size: 24px; /* Kích thước chữ */
   margin: 5px 0; /* Khoảng cách trên và dưới */
-  border: 3px solid #1F2C5C; /* Viền màu chủ đạo */
+  border: 3px solid #1f2c5c; /* Viền màu chủ đạo */
   border-radius: 5px; /* Bo tròn */
   padding: 5px; /* Padding cho các trường nhập */
   transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp */
 }
 input[type="submit"] {
-  background-color: #1F2C5C; /* Màu nền nút */
+  background-color: #1f2c5c; /* Màu nền nút */
   color: white; /* Màu chữ nút */
-  cursor: pointer; 
+  cursor: pointer;
 }
 input[type="submit"]:hover {
-  background-color: #1D8CF1; /* Màu nền khi hover */
+  background-color: #1d8cf1; /* Màu nền khi hover */
 }
 button {
   background-color: #157235; /* Màu nền nút Copy */
@@ -49,7 +54,7 @@ button {
   margin-left: 10px; /* Khoảng cách với nút Gửi */
 }
 button:hover {
-  background-color: #5BC044; /* Màu nền khi hover nút Copy */
+  background-color: #5bc044; /* Màu nền khi hover nút Copy */
 }
 input[type="radio"] {
   width: 20px; /* Kích thước radio button */
@@ -59,4 +64,4 @@ input[type="radio"] {
 .inline {
   display: inline-block; /* Đặt các phần tử trên cùng một hàng */
   margin-right: 20px; /* Khoảng cách giữa các phần tử */
-} 
+}

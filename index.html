@@ -167,6 +167,10 @@
       window.onload = function () {
         restoreData();
         toggleFields();
+        document.getElementById("result").style.display = "none"; // Ẩn
+        document.querySelector(
+          "button[onclick='copyToClipboard()']"
+        ).style.display = "none"; // Ẩn
       };
 
       function handleFormSubmit() {
@@ -239,6 +243,10 @@
         }
 
         document.getElementById("result").innerText = message;
+        document.getElementById("result").style.display = "block";
+        document.querySelector(
+          "button[onclick='copyToClipboard()']"
+        ).style.display = "block";
       }
 
       function handleReasonChange(reasonId) {
