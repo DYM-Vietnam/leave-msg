@@ -179,7 +179,7 @@
 
         const leaveType = document.getElementById("leaveType").value;
         const isApproved = document.getElementById("approvedCheckbox").checked
-          ? " （KHOIさん承認済み）"
+          ? " （木戸さん承認済み）"
           : "";
         let message = "";
 
@@ -191,7 +191,7 @@
               reason1 =
                 document.getElementById("customreason1").value || "Khác";
             }
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date1}に有給休暇を取らせていただきます。\n理由：${reason1}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date1}に有給休暇を取らせていただきます。\n理由：${reason1}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case "halfDay":
             const date2 = formatDate(document.getElementById("date2").value);
@@ -203,7 +203,7 @@
               reason2 =
                 document.getElementById("customreason2").value || "Khác";
             }
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date2}の${session}に休暇を取らせていただきます。\n理由：${reason2}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${date2}の${session}に有給休暇を取らせていただきます。\n理由：${reason2}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case "multipleDays":
             const startDate = formatDate(
@@ -217,15 +217,15 @@
               reason3 =
                 document.getElementById("customreason3").value || "Khác";
             }
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${startDate}～${endDate}までに有給休暇を取らせていただきます。\n理由：${reason3}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${startDate}～${endDate}までに有給休暇を取らせていただきます。\n理由：${reason3}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case "late":
             const lateMinutes = document.getElementById("lateMinutes").value;
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日${lateMinutes}分くらい遅刻させていただきます。\n理由: 渋滞のため\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日${lateMinutes}分くらい遅刻させていただきます。\n理由: 渋滞のため\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case "Fkyuu":
             const fkyuuType = document.getElementById("fkyuuType").value;
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日30分くらい${fkyuuType}させていただきます。\n理由: F休\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n本日30分くらい${fkyuuType}させていただきます。\n理由: F休\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
           case "customize":
             const customDate = formatDate(
@@ -239,7 +239,7 @@
               reason4 =
                 document.getElementById("customreason4").value || "Khác";
             }
-            message = `@Dym Khoi\n@Thuy Kieu\n\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${customDate} の ${startTime}～ ${endTime}までに休暇を取らせていただきます。\n理由：${reason4}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
+            message = `@木戸一樹\n@Thuy Kieu\nお疲れ様です。\n急な連絡となり、ご迷惑をおかけして大変申し訳ございません。\n\n${customDate} の ${startTime}～ ${endTime}までに有給休暇を取らせていただきます。\n理由：${reason4}${isApproved}\nご迷惑をおかけしますことを深くお詫び申し上げます。\nご確認のほど、よろしくお願いいたします。`;
             break;
         }
 
@@ -325,28 +325,30 @@
     <div
       class="container-fluid px-3 py-4 d-flex flex-column align-items-center"
     >
-      <h3 class="text-center mb-4">XIN NGHỈ PHÉP</h3>
+      <h3 class="text-center mb-4">LEAVE REQUEST TEMPLATE</h3>
       <form
         onsubmit="handleFormSubmit(); return false;"
         class="w-100"
         style="max-width: 500px"
       >
         <div class="mb-3">
-          <label for="leaveType">Loại nghỉ:</label>
+          <label for="leaveType">LEAVE TYPE:</label>
           <select id="leaveType" class="form-control" onchange="toggleFields()">
-            <option value="late" selected>Đi trễ</option>
-            <option value="Fkyuu">F休</option>
-            <option value="halfDay">Nửa ngày</option>
-            <option value="1day">1 ngày</option>
-            <option value="multipleDays">Nhiều ngày</option>
-            <option value="customize">Tùy chọn</option>
+            <option value="late" selected>遅刻 (Late Arrival)</option>
+            <option value="Fkyuu">F休 (woman leave)</option>
+            <option value="halfDay">有給休暇_半休 (Half Day Leave)</option>
+            <option value="1day">有給休暇_1日 (One Day Leave)</option>
+            <option value="multipleDays">
+              有給休暇_複数日 (Multiple Days Leave)
+            </option>
+            <option value="customize">その他 (Hourly Leave)</option>
           </select>
         </div>
 
         <div id="fields1day" class="mb-3" style="display: none">
-          <label for="date1">Ngày:</label>
+          <label for="date1">Date:</label>
           <input type="date" id="date1" class="form-control" />
-          <label for="reason1" class="mt-2">Lí do:</label>
+          <label for="reason1" class="mt-2">Reason:</label>
           <select
             id="reason1"
             class="form-control"
@@ -357,7 +359,9 @@
             <option value="家事都合のため">Việc gia đình</option>
             <option value="必要な手続きをするため">Làm giấy tờ</option>
             <option value="銀行に行くため">Đi ngân hàng</option>
-            <option value="khac">Khác</option>
+            <option value="khac">
+              Khác (sau khi nhập tiếng Việt, đợi 3s để tự động chuyển ngữ)
+            </option>
           </select>
           <input
             type="text"
@@ -370,10 +374,10 @@
         </div>
 
         <div id="fieldsHalfDay" class="mb-3" style="display: none">
-          <label for="date2">Ngày:</label>
+          <label for="date2">Date:</label>
           <input type="date" id="date2" class="form-control" />
           <div class="mt-2">
-            <label class="form-label me-2">Buổi:</label>
+            <label class="form-label me-2">Time of Day:</label>
             <div class="form-check form-check-inline">
               <input
                 class="form-check-input"
@@ -382,7 +386,9 @@
                 value="午前"
                 id="sessionMorning"
               />
-              <label class="form-check-label" for="sessionMorning">Sáng</label>
+              <label class="form-check-label" for="sessionMorning"
+                >Morning</label
+              >
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -393,11 +399,11 @@
                 id="sessionAfternoon"
               />
               <label class="form-check-label" for="sessionAfternoon"
-                >Chiều</label
+                >Afternoon</label
               >
             </div>
           </div>
-          <label for="reason2" class="mt-2">Lí do:</label>
+          <label for="reason2" class="mt-2">Reason:</label>
           <select
             id="reason2"
             class="form-control"
@@ -408,7 +414,9 @@
             <option value="家事都合のため">Việc gia đình</option>
             <option value="必要な手続きをするため">Làm giấy tờ</option>
             <option value="銀行に行くため">Đi ngân hàng</option>
-            <option value="khac">Khác</option>
+            <option value="khac">
+              Khác (sau khi nhập tiếng Việt, đợi 3s để tự động chuyển ngữ)
+            </option>
           </select>
           <input
             type="text"
@@ -423,15 +431,15 @@
         <div id="fieldsMultipleDays" class="mb-3" style="display: none">
           <div class="row">
             <div class="col">
-              <label for="startDate">Ngày bắt đầu:</label>
+              <label for="startDate">Start Date:</label>
               <input type="date" id="startDate" class="form-control" />
             </div>
             <div class="col">
-              <label for="endDate">Ngày kết thúc:</label>
+              <label for="endDate">End Date:</label>
               <input type="date" id="endDate" class="form-control" />
             </div>
           </div>
-          <label for="reason3" class="mt-2">Lí do:</label>
+          <label for="reason3" class="mt-2">Reason:</label>
           <select
             id="reason3"
             class="form-control"
@@ -442,7 +450,9 @@
             <option value="家事都合のため">Việc gia đình</option>
             <option value="必要な手続きをするため">Làm giấy tờ</option>
             <option value="銀行に行くため">Đi ngân hàng</option>
-            <option value="khac">Khác</option>
+            <option value="khac">
+              Khác (sau khi nhập tiếng Việt, đợi 3s để tự động chuyển ngữ)
+            </option>
           </select>
           <input
             type="text"
@@ -455,34 +465,34 @@
         </div>
 
         <div id="fieldsLate" class="mb-3" style="display: block">
-          <label for="lateMinutes">Số phút đi trễ:</label>
+          <label for="lateMinutes">Total Minutes Late:</label>
           <input type="number" id="lateMinutes" class="form-control" />
         </div>
 
         <div id="fieldsFkyuu" class="mb-3" style="display: none">
-          <label for="fkyuuType">Loại:</label>
+          <label for="fkyuuType">Fkyu Type:</label>
           <select id="fkyuuType" class="form-control">
-            <option value="遅刻">Xin đi trễ</option>
-            <option value="早退">Xin về sớm</option>
+            <option value="遅刻">Arriving Late</option>
+            <option value="早退">Leaving Early</option>
           </select>
         </div>
 
         <div id="fieldsCustomize" class="mb-3" style="display: none">
           <div class="row">
             <div class="col">
-              <label for="customDate">Ngày:</label>
+              <label for="customDate">Date:</label>
               <input type="date" id="customDate" class="form-control" />
             </div>
             <div class="col">
-              <label for="startTime">Giờ bắt đầu:</label>
+              <label for="startTime">Start Time:</label>
               <input type="time" id="startTime" class="form-control" />
             </div>
             <div class="col">
-              <label for="endTime">Giờ kết thúc:</label>
+              <label for="endTime">End Time:</label>
               <input type="time" id="endTime" class="form-control" />
             </div>
           </div>
-          <label for="reason4" class="mt-2">Lí do:</label>
+          <label for="reason4" class="mt-2">Reason:</label>
           <select
             id="reason4"
             class="form-control"
@@ -493,7 +503,9 @@
             <option value="家事都合のため">Việc gia đình</option>
             <option value="必要な手続きをするため">Làm giấy tờ</option>
             <option value="銀行に行くため">Đi ngân hàng</option>
-            <option value="khac">Khác</option>
+            <option value="khac">
+              Khác (sau khi nhập tiếng Việt, đợi 3s để tự động chuyển ngữ)
+            </option>
           </select>
           <input
             type="text"
@@ -512,11 +524,11 @@
             class="form-check-input"
           />
           <label for="approvedCheckbox" class="form-check-label"
-            >LEADER ĐÃ DUYỆT</label
+            >Approved by Leader</label
           >
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 mb-2">Xuất</button>
+        <button type="submit" class="btn btn-primary w-100 mb-2">SUBMIT</button>
         <button
           type="button"
           onclick="copyToClipboard()"
@@ -527,6 +539,13 @@
       </form>
 
       <div id="result" class="result-box mt-3"></div>
+      <script>
+        document
+          .getElementById("leaveType")
+          .addEventListener("change", function () {
+            document.getElementById("result").innerHTML = "";
+          });
+      </script>
     </div>
 
     <link
